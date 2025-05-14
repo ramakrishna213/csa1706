@@ -1,0 +1,15 @@
+def vacuum_cleaner():
+    states = [('Dirty', 'Dirty'), ('Clean', 'Dirty'), ('Dirty', 'Clean'), ('Clean', 'Clean')]
+    for state in states:
+        location = 'A'
+        actions = []
+        a, b = state
+        if a == 'Dirty':
+            actions.append('Suck at A')
+        if b == 'Dirty':
+            actions.append('Move to B')
+            actions.append('Suck at B')
+        print(f"Initial State: {state}")
+        print(f"Actions: {actions}\n")
+
+vacuum_cleaner()
