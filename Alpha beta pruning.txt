@@ -1,0 +1,33 @@
+import math
+print("192311367- A.Praveen")
+# Minimax with alpha-beta pruning
+def alphabeta(depth, nodeIndex, isMax, values, alpha, beta):
+    if depth == 3:  # Reached leaf node
+        return values[nodeIndex]
+
+    if isMax:
+        best = -math.inf
+        for i in range(2):
+            val = alphabeta(depth + 1, nodeIndex * 2 + i, False, values, alpha, beta)
+            best = max(best, val)
+            alpha = max(alpha, best)
+            if beta <= alpha:
+                break  # Beta cut-off
+        return best
+    else:
+        best = math.inf
+        for i in range(2):
+            val = alphabeta(depth + 1, nodeIndex * 2 + i, True, values, alpha, beta)
+            best = min(best, val)
+            beta = min(beta, best)
+            if beta <= alpha:
+                break  # Alpha cut-off
+        return best
+
+# Leaf node values of the game tree
+values = [3, 5, 6, 9, 1, 2, 0, -1]
+
+# Calling alphabeta for the root
+best_value = alphabeta(0, 0, True, values, -math.inf, math.inf)
+
+print("The optimal value is:", best_value)

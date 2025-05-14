@@ -1,0 +1,33 @@
+import itertools
+
+# Distance matrix (symmetric)
+# 4 cities: A, B, C, D
+dist = [
+    [0, 10, 15, 20],  # A
+    [10, 0, 35, 25],  # B
+    [15, 35, 0, 30],  # C
+    [20, 25, 30, 0]   # D
+]
+
+n = len(dist)
+cities = list(range(n))  # [0, 1, 2, 3]
+
+min_cost = float('inf')
+best_path = []
+
+# Try all permutations starting from city 0
+for perm in itertools.permutations(cities[1:]):
+    path = [0] + list(perm)
+    cost = 0
+    for i in range(n - 1):
+        cost += dist[path[i]][path[i + 1]]
+    cost += dist[path[-1]][path[0]]  # return to start
+
+    if cost < min_cost:
+        min_cost = cost
+        best_path = path
+
+# Print result
+city_names = ['A', 'B', 'C', 'D']
+print("Shortest path:", ' -> '.join(city_names[i] for i in best_path) + f" -> {city_names[best_path[0]]}")
+print("Minimum cost:", min_cost)
